@@ -27,7 +27,7 @@ namespace FlowerDanceFix
 			Helper = helper;
         }
 		
-		public static bool ListFix(StardewValley.Event __instance, ref bool __result)
+		public static bool ListFix(StardewValley.Event __instance)
 		{
 			try
 			{
