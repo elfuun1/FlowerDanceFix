@@ -28,6 +28,8 @@ namespace FlowerDanceFix
             EventPatched.Initialize(Monitor);
 
             EventPatched.SetHelper(helper);
+            
+            EventPatched.SetConfig(Config);
 
             var harmony = HarmonyInstance.Create(this.ModManifest.UniqueID);
 

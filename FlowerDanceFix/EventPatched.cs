@@ -113,10 +113,10 @@ namespace FlowerDanceFix
 						}
 					}
 					//Generates NPC-NPC pairs
-					while (females.Count < ModConfig.MaxDancePairs)
+					while (females.Count < Config.MaxDancePairs)
 					{
 						//Random pair generation- config moderated
-						if (ModConfig.NPCsHaveRandomPartners == true)
+						if (Config.NPCsHaveRandomPartners == true)
 						{
 							try
 							{
