@@ -15,19 +15,20 @@ namespace FlowerDanceFix
 {
     public class ModEntry : Mod
     {
-        private static ModConfig Config;
+        private ModConfig Config;
 
         public override void Entry(IModHelper helper)
         {
             //Initialize Config
             Config = this.Helper.ReadConfig<ModConfig>();
-           //Helper.Events.GameLoop.GameLaunched += onLaunched;
+      
+            //Helper.Events.GameLoop.GameLaunched += onLaunched;
 
             //Initialize Patches
             EventPatched.Initialize(Monitor);
 
             EventPatched.SetHelper(helper);
-            
+
             var harmony = HarmonyInstance.Create(this.ModManifest.UniqueID);
 
             harmony.Patch(
