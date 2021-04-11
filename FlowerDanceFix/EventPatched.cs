@@ -27,7 +27,7 @@ namespace FlowerDanceFix
 			Helper = helper;
         }
 		
-		public static bool ListFix(StardewValley.Event __instance)
+		public bool ListFix(StardewValley.Event __instance)
 		{
 			try
 			{
@@ -38,7 +38,7 @@ namespace FlowerDanceFix
 						return true;
 					}
 
-
+					//Reflection to access protected Game1.Multiplayer
 					Multiplayer multiplayer = Helper.Reflection.GetField<Multiplayer>(typeof(Game1), "multiplayer").GetValue();
 
 					//Sets up random number generation for later use
@@ -116,20 +116,27 @@ namespace FlowerDanceFix
 					while (females.Count < ModConfig.MaxDancePairs)
 					{
 						//Random pair generation- config moderated
-						if (ModConfig.NPCsHaveRandomPartners.Equals(true))
+						if (ModConfig.NPCsHaveRandomPartners == true)
 						{
+							try
+							{
+								int r = rnd.Next(leftoverMales.Count);
 
-							int r = rnd.Next(leftoverMales.Count);
+								string female = leftoverFemales.Last();
+								string randomMale = leftoverMales[r];
 
-							string female = leftoverFemales.Last();
-							string randomMale = leftoverMales[r];
+								females.Add(new NetDancePartner(female));
+								males.Add(new NetDancePartner(randomMale));
 
-							females.Add(new NetDancePartner(female));
-							males.Add(new NetDancePartner(randomMale));
+								leftoverFemales.Remove(female);
+								leftoverMales.Remove(randomMale);
 
-							leftoverFemales.Remove(female);
-							leftoverMales.Remove(randomMale);
-						
+								Monitor.Log("Flower Dance Fix successfully filled NetDancePartner with random MF pairs.");
+							}
+							catch (Exception)
+                            {
+								Monitor.Log("Flower Dance Fix failed to fill NetDancePartner with random MF pairs.", LogLevel.Debug);
+                            }
 						}
 						//Vanilla pair generation
 						else
@@ -141,15 +148,17 @@ namespace FlowerDanceFix
 								males.Add(new NetDancePartner(Utility.getLoveInterest(female)));
 							}
 							leftoverFemales.Remove(female);
+
+							Monitor.Log("Flower Dance Fix used vanilla method to fill NetDancePartner with pairs.", LogLevel.Debug);
 						}
 						//Generates spring24.json "mainEvent" value
 						string rawFestivalData = __instance.GetFestivalDataForYear("mainEvent");
-						for (int i = 1; i <= ModConfig.MaxDancePairs; i++)
+						for (int i = 1; i <= 6; i++)
 						{
-							string female2 = ((!females[i - 1].IsVillager()) ? ("farmer" + Utility.getFarmerNumberFromFarmer(females[i - 1].TryGetFarmer())) : females[i - 1].TryGetVillager().Name);
+							string female2 = ((!females[i - 1].IsVillager()) ? ("farmer" + Utility.getFarmerNumberFromFarmer(females[i-1].TryGetFarmer())) : females[i-1].TryGetVillager().Name);
 							string male = ((!males[i - 1].IsVillager()) ? ("farmer" + Utility.getFarmerNumberFromFarmer(males[i - 1].TryGetFarmer())) : males[i - 1].TryGetVillager().Name);
-							rawFestivalData = rawFestivalData.Replace("Girl" + i, female2);
-							rawFestivalData = rawFestivalData.Replace("Guy" + i, male);
+							rawFestivalData = rawFestivalData.Replace("Girl" + (i), female2);
+							rawFestivalData = rawFestivalData.Replace("Guy" + (i), male);
 						}
 						Regex regex = new Regex("showFrame (?<farmerName>farmer\\d) 44");
 						Regex showFrameGirl = new Regex("showFrame (?<farmerName>farmer\\d) 40");

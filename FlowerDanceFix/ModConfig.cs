@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlowerDanceFix
 {
-    class ModConfig
+    public class ModConfig
     {
         //Changes number of pairs dancing- not tested for more than 6 pairs
         public static int MaxDancePairs { get; set; } = 6;
