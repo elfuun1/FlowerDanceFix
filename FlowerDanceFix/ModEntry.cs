@@ -20,7 +20,13 @@ namespace FlowerDanceFix
         public override void Entry(IModHelper helper)
         {
             //Initialize Config
-            Config = this.Helper.ReadConfig<ModConfig>();
+            this.Config = this.Helper.ReadConfig<ModConfig>();
+            int MaxDancePairs = this.Config.MaxDancePairs;
+            bool NPCsHaveRandomPartners = this.Config.NPCsHaveRandomPartners;
+            bool ForceHeteroPartners = this.Config.ForceHeteroPartners;
+            bool AllowNonbinaryPartners = this.Config.AllowNonBinaryPartners;
+            bool AllowTouristPartners = this.Config.AllowTouristPartners;
+            string DancerBlackList = this.Config.DancerBlackList;
 
             //Helper.Events.GameLoop.GameLaunched += onLaunched;
 
