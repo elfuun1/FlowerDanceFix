@@ -21,14 +21,14 @@ namespace FlowerDanceFix
         {
             //Initialize Config
             Config = this.Helper.ReadConfig<ModConfig>();
-      
+
             //Helper.Events.GameLoop.GameLaunched += onLaunched;
 
             //Initialize Patches
             EventPatched.Initialize(Monitor);
 
             EventPatched.SetHelper(helper);
-            
+
             EventPatched.SetConfig(Config);
 
             var harmony = HarmonyInstance.Create(this.ModManifest.UniqueID);

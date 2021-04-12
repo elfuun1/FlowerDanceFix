@@ -17,13 +17,14 @@ namespace FlowerDanceFix
         //TBC- Pairs of NPCs dancing are random pairs of random genders- will require additional sprites
         public bool ForceHeteroPartners { get; set; } = true;
 
-        //TBC- Code to select datables that are not male of female (ie undefined; gender = 2)
+        //TBC- Code to select datables that are not male of female (ie undefined; gender = 2)- will require additional sprites
         public bool AllowNonBinaryPartners { get; set; } = false;
-      
-        //TBC- Code to select datables living outside the valley (ie not town; homeRegion != 2)
+
+        //Can select datables living outside the valley (ie not town; homeRegion != 2)
         public bool AllowTouristPartners { get; set; } = false;
 
-        //TBC- Configureable blacklist of datables to be removed from genderedList pools
+        //TBC- Configureable blacklist of datables to be removed from genderedList pools- enclose NPC base name in quotes, deliniate forward slash
+        public string DancerBlackList { get; set; }
     }
 
 
