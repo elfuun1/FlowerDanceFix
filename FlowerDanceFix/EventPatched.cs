@@ -1,50 +1,40 @@
-﻿using System;
+﻿using StardewModdingAPI;
+using StardewValley;
+using StardewValley.Network;
+using StardewValley.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using StardewValley;
-using StardewValley.Network;
-using StardewValley.Objects;
-using StardewModdingAPI;
 
 namespace FlowerDanceFix
 {
     public class EventPatched
     {
-        private static IMonitor Monitor;
+        public static IMonitor Monitor;
+        public static IModHelper Helper;
+        public static ModConfig Config;
 
-        private static IModHelper Helper;
-
-        private static ModConfig Config;
-
-        public static void Initialize(IMonitor monitor)
+        public static void Initialize(IMonitor monitor, ModConfig config)
         {
             Monitor = monitor;
-        }
-
-        public static void SetHelper(IModHelper helper)
-        {
-            Helper = helper;
-        }
-
-        public static void SetConfig(ModConfig config)
-        {
             Config = config;
         }
 
-        public bool ListFix(StardewValley.Event __instance)
+        public static void setUpFestivalMainEvent_FDF(StardewValley.Event __instance)
         {
-            try
             {
+                Monitor.Log("setUpFestivalMainEvent_FDF loads", LogLevel.Alert);
+
+                if (Monitor is null || __instance is null || !__instance.isSpecificFestival("spring24"))
                 {
-                    if (Monitor is null || __instance is null || !__instance.isSpecificFestival("spring24"))
+                    return;
+                }
 
-                    {
-                        return true;
-                    }
-
+                try
+                {
                     //Reflection to access protected Game1.Multiplayer
                     Multiplayer multiplayer = Helper.Reflection.GetField<Multiplayer>(typeof(Game1), "multiplayer").GetValue();
 
@@ -65,47 +55,54 @@ namespace FlowerDanceFix
                     //Populates "leftoverGender" lists with all datable NPCs of each respective gender for selection, configurable switch for nonbinary characters
                     foreach (NPC character in charList)
                     {
-                        //Still don't know why this thing with cases ain't working
-
-                        /*  if(character.datable.Equals(true))
-                           {
-                              int intgender = character.Gender;
-
-                               switch(intgender)
-                               {
-                                   case 0: 
-                                       leftoverMales.Add(character.Name);
-
-                                   case 1: 
-                                       leftoverFemales.Add(character.Name);
-
-                                   case 2:
-                                       if(Config.AllowNonBinaryPartners.Equals(true))
-                                       {
-                                           //check to see if nonbinary dance partner has custom FDF sprites
-                                          
-                                            try 
-                                           {
-                                               //check to see if nonbinary dance partner has custom FDF sprites
-                                               //load custom FDF sprites if available
-                                               //add nonbinary partner to random leftoverGender list
-                                           }
-                                           catch(Exception)
-                                           {
-                                               Monitor.Log("Flower Dance Fix cannot find custom FDF sprites for " + character.name + " and cannot add that NPC to dancer pools.", LogLevel.Debug);
-                                               continue;
-                                           }
-                                       }
-                               }
-                           }
-                       */
-                        if (character.gender.Equals(0) && character.datable.Equals(true))
+                        if (character.datable.Equals(true))
                         {
-                            leftoverMales.Add(character.Name);
-                        }
-                        else if (character.gender.Equals(1) && character.datable.Equals(true))
-                        {
-                            leftoverFemales.Add(character.Name);
+                            int intgender = character.Gender;
+                            switch (intgender)
+                            {
+                                case 0:
+                                    leftoverMales.Add(character.Name);
+                                    break;
+
+                                case 1:
+                                    leftoverFemales.Add(character.Name);
+                                    break;
+
+                                case 2:
+                                    if (Config.AllowNonBinaryPartners.Equals(true))
+                                    {
+                                        try
+                                        {
+                                            //check to see if nonbinary dance partner has custom FDF sprites
+                                            //load custom FDF sprites if available
+
+                                            //add nonbinary partner to random leftoverGender list
+
+                                            // int g = rnd.Next(1);
+                                            // if (g == 0)
+                                            // {
+                                            //     leftoverMales.Add(character.Name);
+                                            // }
+                                            // else
+                                            // {
+                                            //     leftoverFemales.Add(character.Name);
+                                            // }
+
+                                            break;
+                                        }
+                                        catch (Exception)
+                                        {
+                                            Monitor.Log("Flower Dance Fix cannot find custom FDF sprites for " + character.name + " and cannot add that NPC to dancer pools.", LogLevel.Debug);
+                                            continue;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Monitor.Log("Flower Dance Fix cannot add " + character.Name + " beacause that NPC does not have a valid gender- set configuration setting ''AllowNonBinaryPartners'' to true to add to dancer pools.", LogLevel.Debug);
+                                        break;
+                                    }
+                            }
+                            continue;
                         }
                         else
                         {
@@ -133,7 +130,7 @@ namespace FlowerDanceFix
                                 leftoverFemales.Remove(j);
                                 blackList.Remove(j);
                             }
-                            
+
                             //Logs blacklisting activity to monitor
                             if (!blackList.Any())
                             {
@@ -171,7 +168,7 @@ namespace FlowerDanceFix
                         }
                     }
 
-                    //Adds farmer-farmer and farmer-NPC pairs to dancelist
+                    //Adds farmer-farmer and farmer-NPC pairs to dancelist- vanilla code
                     List<Farmer> farmers = (from f in Game1.getOnlineFarmers()
                                             orderby f.UniqueMultiplayerID
                                             select f).ToList();
@@ -217,7 +214,7 @@ namespace FlowerDanceFix
                                 int r = rnd.Next(leftoverMales.Count);
 
                                 string female = leftoverFemales.Last();
-                                string randomMale = leftoverMales[r - 1];
+                                string randomMale = leftoverMales[r];
 
                                 females.Add(new NetDancePartner(female));
                                 males.Add(new NetDancePartner(randomMale));
@@ -232,7 +229,7 @@ namespace FlowerDanceFix
                                 Monitor.Log("Flower Dance Fix failed to fill NetDancePartner with random MF pairs.", LogLevel.Debug);
                             }
                         }
-                        //Vanilla pair generation
+                        //Vanilla "love interest" pair generation
                         else
                         {
                             string female = leftoverFemales.Last();
@@ -270,13 +267,12 @@ namespace FlowerDanceFix
                     string[] newCommands = (__instance.eventCommands = rawFestivalData.Split('/'));
 
                 }
-                return false;
-            }
 
-            catch (Exception ex)
-            {
-                Monitor.Log($"Failed in {nameof(ListFix)}:\n{ex}", LogLevel.Error);
-                return true;
+                catch (Exception ex)
+                {
+                    Monitor.Log($"Failed in {nameof(setUpFestivalMainEvent_FDF)}:\n{ex}", LogLevel.Error);
+                }
+
             }
         }
     }

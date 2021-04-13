@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using StardewValley;
+using StardewValley.Network;
+using StardewValley.Objects;
+using StardewModdingAPI;
+using Harmony;
 
 namespace FlowerDanceFix
 {
@@ -33,7 +39,7 @@ namespace FlowerDanceFix
 				rawFestivalData = rawFestivalData.Replace("Guy" + i, male);
                 //in string rawFestivalData, for each i, replace placeholder Girl(i) with male dancer's name
         */
-	}
+    }
 
 }
 
