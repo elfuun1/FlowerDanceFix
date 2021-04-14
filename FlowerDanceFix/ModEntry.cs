@@ -21,7 +21,7 @@ namespace FlowerDanceFix
             Helper.Events.GameLoop.GameLaunched += onLaunched;
 
             // Initialize Patches
-            EventPatched.Initialize(Monitor, Config);
+            EventPatched.Initialize(Monitor, Config, Helper);
             var harmony = HarmonyInstance.Create(this.ModManifest.UniqueID);
 
             harmony.Patch
