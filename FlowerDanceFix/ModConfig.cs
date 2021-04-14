@@ -15,7 +15,7 @@ namespace FlowerDanceFix
     public class ModConfig
     {
         //WIP- Changes number of pairs dancing- not tested for more than 6 pairs
-        public int MaxDancePairs { get; set; } = 6;
+        public int MaxDancePairs { get; set; } = 5;
 
         //Pairs of NPCs dancing are random male-female pairs
         public bool NPCsHaveRandomPartners { get; set; } = false;

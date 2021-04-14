@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace FlowerDanceFix
 {
@@ -26,7 +27,7 @@ namespace FlowerDanceFix
         public static void setUpFestivalMainEvent_FDF(StardewValley.Event __instance)
         {
             {
-                Monitor.Log("setUpFestivalMainEvent_FDF loads", LogLevel.Alert);
+                Monitor.Log("setUpFestivalMainEvent_FDF loads", LogLevel.Debug);
 
                 if (Monitor is null || __instance is null || !__instance.isSpecificFestival("spring24"))
                 {
@@ -176,10 +177,10 @@ namespace FlowerDanceFix
                     {
                         Farmer f2 = farmers[0];
                         farmers.RemoveAt(0);
-                        if (multiplayer.isDisconnecting(f2) || f2.dancePartner.Value == null)
+                       /* if (multiplayer.isDisconnecting(f2) || f2.dancePartner.Value == null)
                         {
                             continue;
-                        }
+                        } */
                         if (f2.dancePartner.GetGender() == 1)
                         {
                             females.Add(f2.dancePartner);
@@ -204,7 +205,7 @@ namespace FlowerDanceFix
                         }
                     }
                     //Generates NPC-NPC pairs
-                    while (females.Count < Config.MaxDancePairs)
+                    while (females.Count < Config.MaxDancePairs && !leftoverFemales.Any() && !leftoverMales.Any())
                     {
                         //Random pair generation- config moderated
                         if (Config.NPCsHaveRandomPartners.Equals(true))
@@ -222,14 +223,14 @@ namespace FlowerDanceFix
                                 leftoverFemales.Remove(female);
                                 leftoverMales.Remove(randomMale);
 
-                                Monitor.Log("Flower Dance Fix successfully filled NetDancePartner with random MF pairs.");
+                                Monitor.Log("Flower Dance Fix made a pair with " + female + " and " + randomMale + " and successfully entered pair into NetDancePartner", LogLevel.Trace);
                             }
                             catch (Exception)
                             {
                                 Monitor.Log("Flower Dance Fix failed to fill NetDancePartner with random MF pairs.", LogLevel.Debug);
                             }
                         }
-                        //Vanilla "love interest" pair generation
+                        //"Love Interest" pair generation, followed by random pair generation for any remainders
                         else
                         {
                             string female = leftoverFemales.Last();
@@ -237,15 +238,32 @@ namespace FlowerDanceFix
                             {
                                 females.Add(new NetDancePartner(female));
                                 males.Add(new NetDancePartner(Utility.getLoveInterest(female)));
+                                leftoverMales.Remove(Utility.getLoveInterest(female));
+                                leftoverFemales.Remove(female);
+                                
+                                Monitor.Log("Flower Dance Fix used ''Love Interest'' method to pair" + female + " and " + Utility.getLoveInterest(female) + " and successfully entered pair into NetDancePartner.", LogLevel.Trace);
                             }
-                            leftoverFemales.Remove(female);
+                            else
+                            {
+                                int r = rnd.Next(leftoverMales.Count);
+                                string randomMale = leftoverMales[r];
+
+                                females.Add(new NetDancePartner(female));
+                                males.Add(new NetDancePartner(randomMale));
+
+                                leftoverFemales.Remove(female);
+                                leftoverMales.Remove(randomMale);
+
+                                Monitor.Log("Flower Dance Fix made a pair with " + female + " and " + randomMale + " and successfully entered pair into NetDancePartner", LogLevel.Trace);
+                            }
 
                             Monitor.Log("Flower Dance Fix used vanilla method to fill NetDancePartner with pairs.", LogLevel.Debug);
                         }
                     }
                     //Generates spring24.json "mainEvent" value
+
                     string rawFestivalData = __instance.GetFestivalDataForYear("mainEvent");
-                    for (int i = 1; i <= 6; i++)
+                    for (int i = 1; i <= Config.MaxDancePairs && i <= females.Count(); i++)
                     {
                         string female2 = ((!females[i - 1].IsVillager()) ? ("farmer" + Utility.getFarmerNumberFromFarmer(females[i - 1].TryGetFarmer())) : females[i - 1].TryGetVillager().Name);
                         string male = ((!males[i - 1].IsVillager()) ? ("farmer" + Utility.getFarmerNumberFromFarmer(males[i - 1].TryGetFarmer())) : males[i - 1].TryGetVillager().Name);
