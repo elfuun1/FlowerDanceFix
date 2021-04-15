@@ -14,6 +14,8 @@ namespace FlowerDanceFix
 {
     public class ModConfig
     {
+        public bool ExperimentalFeatures { get; set; } = false;
+        
         //WIP- Changes number of pairs dancing- not tested for more than 6 pairs
         public int MaxDancePairs { get; set; } = 5;
 
