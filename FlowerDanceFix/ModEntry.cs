@@ -55,7 +55,7 @@ namespace FlowerDanceFix
 
             if (Config.ExperimentalFeatures.Equals(true))
             {
-                api.RegisterSimpleOption(ModManifest, "Allow Non-Hetero Pairs (WIP)", "(WIP) Pairs of NPCs dancing are random pairs of random genders- will require additional sprites", () => Config.ForceHeteroPartners, (bool val) => Config.ForceHeteroPartners = val);
+                api.RegisterSimpleOption(ModManifest, "Allow Mixed-Gendered Dance Lines (WIP)", "(WIP) Pairs of NPCs dancing are random pairs of random genders- will require additional sprites", () => Config.ForceHeteroPartners, (bool val) => Config.ForceHeteroPartners = val);
             }
 
             if (Config.ExperimentalFeatures.Equals(true))
