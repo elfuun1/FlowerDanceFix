@@ -14,10 +14,12 @@ namespace FlowerDanceFix
 {
     public class ModConfig
     {
+        public ModConfig Config;
+
         public bool ExperimentalFeatures { get; set; } = false;
         
         //WIP- Changes number of pairs dancing- not tested for more than 6 pairs
-        public int MaxDancePairs { get; set; } = 5;
+        public int MaxDancePairs { get; set; } = 6;
 
         //Pairs of NPCs dancing are random male-female pairs
         public bool NPCsHaveRandomPartners { get; set; } = false;
@@ -33,7 +35,6 @@ namespace FlowerDanceFix
 
         //Configureable blacklist of datables to be removed from genderedList pools- enclose NPC base name in quotes, deliniate forward slash
         public string DancerBlackList { get; set; } = "";
+
     }
-
-
 }

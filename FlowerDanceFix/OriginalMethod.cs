@@ -13,8 +13,8 @@ using System.Reflection;
 namespace FlowerDanceFix
 {
     class OriginalMethod
-
     {
+        
         public static IMonitor Monitor;
         public static IModHelper Helper;
         public static ModConfig Config;
@@ -45,7 +45,7 @@ namespace FlowerDanceFix
                 Farmer f2 = farmers[0];
                 farmers.RemoveAt(0);
 
-                /*
+                
                 //Reflection to access protected list disconnectingFarmers
 
                 List<long> disconnectingFarmers = Helper.Reflection
@@ -73,7 +73,7 @@ namespace FlowerDanceFix
                 {
                     continue;
                 }
-                */
+                
 
                 //Adds Farmer-Female NPC dance pairs to NetDancePartner
                 if (f2.dancePartner.GetGender() == 1)
@@ -116,9 +116,9 @@ namespace FlowerDanceFix
             string rawFestivalData = __Instance.GetFestivalDataForYear("mainEvent");
             for (int i = 1; i <= 6; i++)
             {
-                
+
                 //Gotta figure out how to get Utility.getFarmerNumberFromFarmer
-                
+
                 string female2 = ((!females[i - 1].IsVillager()) ? ("farmer" + Utility.getFarmerNumberFromFarmer(females[i - 1].TryGetFarmer())) : females[i - 1].TryGetVillager().Name);
                 string male = ((!males[i - 1].IsVillager()) ? ("farmer" + Utility.getFarmerNumberFromFarmer(males[i - 1].TryGetFarmer())) : males[i - 1].TryGetVillager().Name);
                 rawFestivalData = rawFestivalData.Replace("Girl" + i, female2);
@@ -138,5 +138,70 @@ namespace FlowerDanceFix
             rawFestivalData = animation2Girl.Replace(rawFestivalData, "animate $1 false true 600 0 3");
             string[] newCommands = (__Instance.eventCommands = rawFestivalData.Split('/'));
         }
+
+        public static bool HasIslandAttire(NPC character)
+        {
+            try
+            {
+                Game1.temporaryContent.Load<Texture2D>("Characters\\" + NPC.getTextureNameForCharacter(character.name.Value) + "_Beach");
+                if (character != null && character.Name == "Lewis")
+                {
+                    foreach (Farmer farmer in Game1.getAllFarmers())
+                    {
+                        if (farmer != null && farmer.activeDialogueEvents != null && farmer.activeDialogueEvents.ContainsKey("lucky_pants_lewis"))
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+            }
+            return false;
+        }
+
+        //From NPC.cs, line 3755
+        private void finishEndOfRouteAnimation()
+        {
+            _finishingEndOfRouteBehavior = _startedEndOfRouteBehavior;
+            _startedEndOfRouteBehavior = null;
+            if (_finishingEndOfRouteBehavior == "change_beach")
+            {
+                shouldWearIslandAttire.Value = true;
+                currentlyDoingEndOfRouteAnimation = false;
+            }
+            else if (_finishingEndOfRouteBehavior == "change_normal")
+            {
+                shouldWearIslandAttire.Value = false;
+                currentlyDoingEndOfRouteAnimation = false;
+            }
+
+        }
+
+        //From NPC.cs, line 3062
+        public virtual void wearIslandAttire()
+        {
+            try
+            {
+                Sprite.LoadTexture("Characters\\" + getTextureNameForCharacter(name.Value) + "_Beach");
+            }
+            catch (ContentLoadException)
+            {
+                Sprite.LoadTexture("Characters\\" + getTextureNameForCharacter(name.Value));
+            }
+            isWearingIslandAttire = true;
+            resetPortrait();
+        }
+
+        public virtual void wearNormalClothes()
+        {
+            Sprite.LoadTexture("Characters\\" + getTextureNameForCharacter(name.Value));
+            isWearingIslandAttire = false;
+            resetPortrait();
+        }
+        
     }
 }
