@@ -25,7 +25,7 @@ Dancer Black List- Incorrectly parsed by the code. To be fixed for next release!
 
 This mod currently contains integrations for the following mods:
 
-[https://www.nexusmods.com/stardewvalley/mods/5098](Generic Mod Config Menu by spacechase0)
+[Generic Mod Config Menu by spacechase0](https://www.nexusmods.com/stardewvalley/mods/5098)
 
 More to come!
 
@@ -46,12 +46,12 @@ Some of these features may exist partially in the mod files, or visible in the m
 
 ## Acknowledgements
 
-[https://github.com/kenny2892/StardewValleyMods](Kelly2892) - for example code regarding harmony implementation
+[Kelly2892](https://github.com/kenny2892/StardewValleyMods) - for example code regarding harmony implementation
 Matt123337 - for mentorship, and listening to my gripes
-[https://stardewvalleywiki.com/Modding:Modder_Guide/Get_Started](The Stardew Valley Wiki's Modding Guide) - for general information and laying out step-by-step how to write a mod
+[The Stardew Valley Wiki's Modding Guide](https://stardewvalleywiki.com/Modding:Modder_Guide/Get_Started) - for general information and laying out step-by-step how to write a mod
 Stardew Valley Discord Server- for answering quick questions and providing inspiration
 
-Custom NPCs in the screenshot are from [https://www.nexusmods.com/stardewvalley/mods/3753](Stardew Valley Expanded)!
+Custom NPCs in the screenshot are from [Stardew Valley Expanded](https://www.nexusmods.com/stardewvalley/mods/3753)!
 
 ## Update Logs
 
