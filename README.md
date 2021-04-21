@@ -1,8 +1,8 @@
-#Flower Dance Fix
+# Flower Dance Fix
 
 Flower Dance Fix changes the "main event" code of the Flower Dance Festival, allowing for Custom NPCs and edited vanilla NPCs to participate in the dance, and for the pairs of dancers to be randomized. An NPC must be "datable", and not a child, to be eligible to participate in the dance.
 
-#Configuration
+# Configuration
 Mod settings can be configured in the config.json file included in the mod folder, or on the main menu using the Generic Mod Config Menu. Current config settings are:
 
 **NPCs Have Random Partners** (default: false)
@@ -13,7 +13,7 @@ If true, NPCs are paired with the opposite sex at random.
 If false, NPCs that do not live in the valley will be excluded from the dancer pools. This is calculated using the NPC's "homeRegion" value.
 If true, valid NPCs living anywhere are eligible to participate in the dance.
 
-#Incompatibilities/Bugs
+# Incompatibilities/Bugs
 
 This mod will likely break when used alongside any mod that accesses the Event.setUpFestivalMainEvent method.
 
@@ -21,7 +21,7 @@ Known bugs:
 
 Dancer Black List- Incorrectly parsed by the code. To be fixed for next release! (Sorry for the inconvenience!)
 
-#Integrations
+# Integrations
 
 This mod currently contains integrations for the following mods:
 
@@ -29,7 +29,7 @@ This mod currently contains integrations for the following mods:
 
 More to come!
 
-#Future Development
+# Future Development
 
 Further updates will include:
 * Variable dance size
@@ -44,7 +44,7 @@ Further updates will include:
 
 Some of these features may exist partially in the mod files, or visible in the mod config menu/json. They are unlikely to work, as they are either incomplete or improperly implemented.
 
-#Acknowledgements
+# Acknowledgements
 
 [https://github.com/kenny2892/StardewValleyMods](Kelly2892) - for example code regarding harmony implementation
 Matt123337 - for mentorship, and listening to my gripes
@@ -53,8 +53,8 @@ Stardew Valley Discord Server- for answering quick questions and providing inspi
 
 Custom NPCs in the screenshot are from [https://www.nexusmods.com/stardewvalley/mods/3753](Stardew Valley Expanded)!
 
-#Update Logs
+# Update Logs
 
-###Version [1.0.1] - 17 Apr 2021
+### Version [1.0.1] - 17 Apr 2021
 * Added Nexus Mods update key
 * Added filter to prevent selection of children
