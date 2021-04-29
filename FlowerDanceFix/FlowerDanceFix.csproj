@@ -55,10 +55,8 @@
     <Compile Include="CustomSprites.cs" />
     <Compile Include="EventPatched.cs" />
     <Compile Include="GenericModConfigMenuAPI.cs" />
-    <Compile Include="ImportantMethodsCopiedForReference.cs" />
     <Compile Include="ModConfig.cs" />
     <Compile Include="ModEntry.cs" />
-    <Compile Include="OriginalMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
