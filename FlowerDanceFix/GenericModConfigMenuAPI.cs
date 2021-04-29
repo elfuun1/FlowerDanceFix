@@ -31,5 +31,11 @@ namespace FlowerDanceFix
                                    Func<Vector2, object, object> widgetUpdate,
                                    Func<SpriteBatch, Vector2, object, object> widgetDraw,
                                    Action<object> onSave);
+        void SubscribeToChange(IManifest mod, Action<string, bool> changeHandler);
+        void SubscribeToChange(IManifest mod, Action<string, int> changeHandler);
+        void SubscribeToChange(IManifest mod, Action<string, float> changeHandler);
+        void SubscribeToChange(IManifest mod, Action<string, string> changeHandler);
+
+        void OpenModMenu(IManifest mod);
     }
 }
