@@ -52,7 +52,7 @@ namespace FlowerDanceFix
             api.RegisterSimpleOption(ModManifest, "Allow Non-Binary Dancers (WIP)", "(WIP) Allows NPCs that are not male or female (ie secret or unknown; gender is 2)- will require additional sprites.", () => Config.AllowNonBinaryPartners, (bool val) => Config.AllowNonBinaryPartners = val);
             api.RegisterSimpleOption(ModManifest, "Allow Tourist Dancers", "Allows NPCs living outside the valley (ie they do not live in town; homeRegion is not 2).", () => Config.AllowTouristPartners, (bool val) => Config.AllowTouristPartners = val);
             api.RegisterSimpleOption(ModManifest, "NPC Blacklist", "Configureable blacklist of NPCs preventing them from dancing- enclose NPC base name in quotes, deliniated by a forward slash, with no spaces.", () => Config.DancerBlackList, (string val) => Config.DancerBlackList = val);
-            api.RegisterSimpleOption(ModManifest, "Allow WIP Features", "Allows access to experimental and WIP config mechanics- requires save and game restart. ***WILL BE BUGGY***", () => Config.NPCsHaveRandomPartners, (bool val) => Config.ExperimentalFeatures = val);
+            api.RegisterSimpleOption(ModManifest, "Allow Crowd Animations", "Allows for custom crowd animations. May shuffle spectator NPCs around the main event layout.", () => Config.AllowCrowdAnimation, (bool val) => Config.AllowCrowdAnimation = val);
         }
     }
 }
