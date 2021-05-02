@@ -40,6 +40,9 @@
     <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
+    <Reference Include="SpaceCore">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Stardew Valley\Mods\SpaceCore\SpaceCore.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
@@ -52,7 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomSprites.cs" />
+    <Compile Include="CustomDance.cs" />
     <Compile Include="EventPatched.cs" />
     <Compile Include="GenericModConfigMenuAPI.cs" />
     <Compile Include="ModConfig.cs" />
@@ -63,7 +66,6 @@
     <None Include="manifest.json" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Assets\Abigail_FDF.png" />
     <Content Include="Assets\Emily_FDF.png" />
