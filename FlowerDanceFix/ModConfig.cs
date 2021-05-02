@@ -16,7 +16,7 @@ namespace FlowerDanceFix
     {
         public ModConfig Config;
         
-        //WIP- Changes number of pairs dancing- not tested for more than 6 pairs
+        //WIP- Changes number of pairs dancing- not tested for more than 6 pairs, hypothetically up to 15 pairs?
         public int MaxDancePairs { get; set; } = 6;
 
         //Pairs of NPCs dancing are random male-female pairs

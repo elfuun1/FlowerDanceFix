@@ -371,13 +371,13 @@ namespace FlowerDanceFix
                     }
                     while ((females.Count < Config.MaxDancePairs) && leftoverFemales.Any() && leftoverMales.Any());
 
-                    if (leftoverFemales.Count < 1)
+                    if (!leftoverFemales.Count.Equals(0))
                     {
                         string unselectedLOFemales = string.Join(", ", leftoverFemales);
                         Monitor.Log("After pair generation, the following NPCs not selected to dance in the top \"female\" line: " + unselectedLOFemales, LogLevel.Trace);
                     }
 
-                    if (leftoverMales.Count < 1)
+                    if (!leftoverMales.Count.Equals(0))
                     {
                         string unselectedLOMales = string.Join(", ", leftoverMales);
                         Monitor.Log("After pair generation, the following NPCs not selected to dance in the bottom \"male\" line: " + unselectedLOMales, LogLevel.Trace);
