@@ -14,7 +14,7 @@ namespace FlowerDanceFix
 {
     class OriginalMethod
     {
-        
+        /*
         public static IMonitor Monitor;
         public static IModHelper Helper;
         public static ModConfig Config;
@@ -202,6 +202,6 @@ namespace FlowerDanceFix
             isWearingIslandAttire = false;
             resetPortrait();
         }
-        
+        */
     }
 }
