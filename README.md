@@ -13,24 +13,10 @@ If true, NPCs are paired with the opposite sex at random.
 If false, NPCs that do not live in the valley will be excluded from the dancer pools. This is calculated using the NPC's "homeRegion" value.
 If true, valid NPCs living anywhere are eligible to participate in the dance.
 
-Flower Dance Fix has several configuration settings. These can be changed by altering the data in the `Config.json` file in the mod folder, or in game if [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) is installed.
+**Maximum Dance Pairs** (default: 6)
+The maximum number of dancer that can be seen dancing. Maximum 17, minimum 0.
 
-## NPCs Have Random Partners
-* **If false (default):**
-NPCs pairs are generated using a "Love Interest" pairing. NPCs will be paired up using the "Love Interest" value in their NPC disposition. NPCs will only be paired up using this method if they are mutual love interests (ie. both NPCs have each-other as a love interest value). Any NPCs without a valid, mutual love interest will be paired with the opposite sex at random.
-* **If true:**
-NPCs are paired with the opposite sex at random.
-
-## Allow Tourist Dancers
-* **If false (default):**
-NPCs that do not live in the valley will be excluded from the dancer pools. This is calculated using the NPC's "homeRegion" value.
-* **If true:**
-Valid NPCs living anywhere are eligible to participate in the dance.
-
-## Maximum Dance Pairs
-The maximum number of dancer that can be seen dancing. **Default 6.** Maximum 17, minimum 0.
-
-## NPC Blacklist
+**NPC Blacklist**
 A list of NPCs to be excluded from selection for a dancer line. To configure the blacklist, add the desired NPCs to the string, separated by a single forward slash "/", like so: "Maru/Shane/Emily"
 
 ## Incompatibilities/Bugs
