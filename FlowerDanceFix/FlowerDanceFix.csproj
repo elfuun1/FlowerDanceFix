@@ -42,6 +42,7 @@
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="SpaceCore">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Stardew Valley\Mods\SpaceCore\SpaceCore.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -58,10 +59,8 @@
     <Compile Include="CustomDance.cs" />
     <Compile Include="EventPatched.cs" />
     <Compile Include="GenericModConfigMenuAPI.cs" />
-    <Compile Include="ImportantMethodsCopiedForReference.cs" />
     <Compile Include="ModConfig.cs" />
     <Compile Include="ModEntry.cs" />
-    <Compile Include="OriginalMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -62,18 +62,18 @@ namespace FlowerDanceFix
                         {
                             int intgender = character.Gender;
 
-                            Monitor.Log(character.name + "'s gender is evaluated as " + intgender, LogLevel.Trace);
+                            Monitor.Log($"{character.Name}'s gender is evaluated as {intgender}.", LogLevel.Trace);
 
                             switch (intgender)
                             {
                                 case 0:
                                     leftoverMales.Add(character.Name);
-                                    Monitor.Log("Successfully added " + character.Name + " to leftoverMales dancer pool.", LogLevel.Trace);
+                                    Monitor.Log($"Successfully added {character.Name} to leftoverMales dancer pool.", LogLevel.Trace);
                                     break;
 
                                 case 1:
                                     leftoverFemales.Add(character.Name);
-                                    Monitor.Log("Successfully added " + character.Name + " to leftoverFemales dancer pool.", LogLevel.Trace);
+                                    Monitor.Log($"Successfully added {character.Name} to leftoverFemales dancer pool.", LogLevel.Trace);
                                     break;
 
                                 case 2:
@@ -102,13 +102,13 @@ namespace FlowerDanceFix
                                         }
                                         catch (Exception)
                                         {
-                                            Monitor.Log("Failed to find custom FDF sprites for " + character.Name + " and cannot add that NPC to dancer pools.", LogLevel.Debug);
+                                            Monitor.Log($"Failed to find custom FDF sprites for {character.Name} and cannot add that NPC to dancer pools.", LogLevel.Debug);
                                             continue;
                                         }
                                     }
                                     else
                                     {
-                                        Monitor.Log("Failed to add nonbinary NPC " + character.Name + " to a leftoverGender dancer pool due to config- AllowNonBinaryPartners = false.", LogLevel.Debug);
+                                        Monitor.Log($"Failed to add nonbinary NPC {character.Name} to a leftoverGender dancer pool due to config- AllowNonBinaryPartners = false.", LogLevel.Debug);
                                         break;
                                     }
                             }
@@ -120,7 +120,7 @@ namespace FlowerDanceFix
                         }
                     }
 
-                    Monitor.Log("Finished adding NPCs to leftoverGender dancer pools.", LogLevel.Debug);
+                    Monitor.Log("Finished adding NPCs to leftoverGender dancer pools.", LogLevel.Trace);
 
                     //Removes blacklisted datables from "leftoverGender" lists based on config
                     if (!String.IsNullOrEmpty(Config.DancerBlackList))
@@ -134,7 +134,7 @@ namespace FlowerDanceFix
                             {
                                 leftoverMales.Remove(i);
                                 blackList.Remove(i);
-                                Monitor.Log("Successfully removed blacklisted NPC " + i + " from dancer pool.", LogLevel.Trace);
+                                Monitor.Log($"Successfully removed blacklisted NPC {i} from dancer pool.", LogLevel.Trace);
                             }
 
                             IEnumerable<string> toRemoveFemale = blackList.Intersect(leftoverFemales);
@@ -142,7 +142,7 @@ namespace FlowerDanceFix
                             {
                                 leftoverFemales.Remove(j);
                                 blackList.Remove(j);
-                                Monitor.Log("Successfully removed blacklisted NPC " + j + " from dancer pool.", LogLevel.Trace);
+                                Monitor.Log($"Successfully removed blacklisted NPC {j} from dancer pool.", LogLevel.Trace);
                             }
 
                             //Logs blacklisting activity to monitor
@@ -153,12 +153,12 @@ namespace FlowerDanceFix
                             else
                             {
                                 string blackListError = string.Join(", ", blackList);
-                                Monitor.Log("Failed to remove the following blacklisted NPCs from dancer pool: " + blackListError + ". Please check that NPCs are referenced by key, and seperated by a single forward slash.", LogLevel.Debug);
+                                Monitor.Log($"Failed to remove the following blacklisted NPCs from dancer pool: {blackListError}. Please check that NPCs are referenced by key, and seperated by a single forward slash.", LogLevel.Debug);
                             }
                         }
-                        catch (Exception)
+                        catch (Exception e)
                         {
-                            Monitor.Log("Flower Dance Fix failed to parse dancer blacklist. Please check that NPCs are referenced by key, and seperated by a single forward slash.", LogLevel.Debug);
+                            Monitor.Log($"Flower Dance Fix failed to parse dancer blacklist. Please check that NPCs are referenced by key, and seperated by a single forward slash. {e}", LogLevel.Debug);
                         }
                     }
 
@@ -174,7 +174,7 @@ namespace FlowerDanceFix
                                 {
                                     case 0:
                                         leftoverMales.Remove(character.Name);
-                                        Monitor.Log("Successfully removed" + character.Name + " from leftoverMales dancer pool. Configurable by AllowTouristPartners.", LogLevel.Trace);
+                                        Monitor.Log($"Successfully removed {character.Name} from leftoverMales dancer pool. Configurable by AllowTouristPartners.", LogLevel.Trace);
                                         break;
                                     case 1:
                                         leftoverFemales.Remove(character.Name);
@@ -216,7 +216,7 @@ namespace FlowerDanceFix
                             }
                             males.Add(new NetDancePartner(f2));
 
-                            Monitor.Log("Made a pair of farmer" + f2.displayName + " and NPC " + f2.dancePartner + " and successfully entered pair into NetDancePartner.", LogLevel.Trace);
+                            Monitor.Log($"Made a pair of farmer {f2.displayName} and NPC {f2.dancePartner} and successfully entered pair into NetDancePartner. Farmer {f2.displayName} to dance in bottom row.", LogLevel.Debug);
                         }
                         if (f2.dancePartner.GetGender() == 0)
                         {
@@ -227,17 +227,17 @@ namespace FlowerDanceFix
                             }
                             females.Add(new NetDancePartner(f2));
 
-                            Monitor.Log("Made a pair of farmer" + f2.displayName + " and NPC " + f2.dancePartner + " and successfully entered pair into NetDancePartner.", LogLevel.Trace);
+                            Monitor.Log($"Made a pair of farmer {f2.displayName} and NPC {f2.dancePartner} and successfully entered pair into NetDancePartner. Farmer {f2.displayName} to dance in top row.", LogLevel.Debug);
                         }
                         if (f2.dancePartner.IsFarmer())
                         {
                             farmers.Remove(f2.dancePartner.TryGetFarmer());
 
-                            Monitor.Log("Made a pair of farmer" + f2.displayName + " and farmer " + f2.dancePartner.TryGetFarmer() + " and successfully entered pair into NetDancePartner.", LogLevel.Trace);
+                            Monitor.Log($"Made a pair of farmer {f2.displayName} and farmer {f2.dancePartner.TryGetFarmer()} and successfully entered pair into NetDancePartner.", LogLevel.Debug);
                         }
                         else
                         {
-                            Monitor.Log("Did not add farmer " + f2.displayName + " to NetDancePairs because they did not have a partner.", LogLevel.Trace);
+                            Monitor.Log($"Did not add farmer {f2.displayName} to NetDancePairs because they did not have a partner.", LogLevel.Debug);
                         }
                     }
 
@@ -261,11 +261,11 @@ namespace FlowerDanceFix
                                 leftoverFemales.Remove(female);
                                 leftoverMales.Remove(randomMale);
 
-                                Monitor.Log("Randomly made a pair with " + female + " and " + randomMale + " and successfully entered pair into NetDancePartner", LogLevel.Trace);
+                                Monitor.Log($"Randomly made a pair with {female} and {randomMale} and successfully entered pair into NetDancePartner", LogLevel.Debug);
                             }
-                            catch (Exception)
+                            catch (Exception e)
                             {
-                                Monitor.Log("Failed to fill NetDancePartner with random M-F pairs.", LogLevel.Debug);
+                                Monitor.Log($"Failed to fill NetDancePartner with random M-F pairs. {e}", LogLevel.Error);
                                 break;
                             }
                         }
@@ -281,7 +281,7 @@ namespace FlowerDanceFix
                                 leftoverMales.Remove(loveInterestMale);
                                 leftoverFemales.Remove(female);
 
-                                Monitor.Log("Used vanilla \"Love Interest\" method to make a pair with " + female + " and " + loveInterestMale + " and successfully entered pair into NetDancePartner.", LogLevel.Trace);
+                                Monitor.Log($"Used vanilla \"Love Interest\" method to make a pair with {female} and {loveInterestMale} and successfully entered pair into NetDancePartner.", LogLevel.Debug);
                             }
                             else if (getCustomLoveInterest(female) != null  && leftoverMales.Contains(getCustomLoveInterest(female)))
                             {
@@ -291,7 +291,7 @@ namespace FlowerDanceFix
                                 males.Add(new NetDancePartner(loveInterestMale));
                                 leftoverFemales.Remove(female);
                                 leftoverMales.Remove(loveInterestMale);
-                                Monitor.Log("Used custom \"Love Interest\" method to make a pair with " + female + " and " + loveInterestMale + " and successfully entered pair into NetDancePartner.", LogLevel.Trace);
+                                Monitor.Log($"Used custom \"Love Interest\" method to make a pair with {female} and {loveInterestMale} and successfully entered pair into NetDancePartner.", LogLevel.Debug);
                             }
                             else
                             {
@@ -300,7 +300,7 @@ namespace FlowerDanceFix
 
                                 if (leftoverFemales.Contains(getCustomLoveInterest(randomMale)) && female != getCustomLoveInterest(randomMale))
                                 {
-                                    Monitor.Log("Could not make a random pair of " + female + " and " + randomMale + " because " + randomMale + " has a valid love interest partner available for selection. " + female + " will be shuffled back into selection pool.", LogLevel.Trace);
+                                    Monitor.Log($"Could not make a random pair of {female} and {randomMale} because {randomMale} has a valid love interest partner available for selection. {female} will be shuffled back into selection pool.", LogLevel.Trace);
                                     continue;
                                 }
                                 else
@@ -311,7 +311,7 @@ namespace FlowerDanceFix
                                     leftoverFemales.Remove(female);
                                     leftoverMales.Remove(randomMale);
 
-                                    Monitor.Log("Randomly made a pair with " + female + " and " + randomMale + " and successfully entered pair into NetDancePartner", LogLevel.Trace);
+                                    Monitor.Log($"Randomly made a pair with {female} and {randomMale} and successfully entered pair into NetDancePartner", LogLevel.Debug);
                                 }
                             }
                         }
@@ -321,19 +321,46 @@ namespace FlowerDanceFix
                     if (leftoverFemales.Any())
                     {
                         string unselectedLOFemales = String.Join(", ", leftoverFemales);
-                        Monitor.Log("After pair generation, leftoverFemales contains the following NPCs not selected for dance: " + unselectedLOFemales, LogLevel.Trace);
+                        Monitor.Log("After pair generation, leftoverFemales contains the following NPCs not selected for dance: " + unselectedLOFemales, LogLevel.Debug);
                     }
 
                     if (leftoverMales.Any())
                     {
                         string unselectedLOMales = String.Join(", ", leftoverMales);
-                        Monitor.Log("After pair generation, leftoverMales contains the following NPCs not selected for dance: " + unselectedLOMales, LogLevel.Trace);
+                        Monitor.Log("After pair generation, leftoverMales contains the following NPCs not selected for dance: " + unselectedLOMales, LogLevel.Debug);
                     }
 
                     {
                         //Generates spring24.json "mainEvent" value
+                        string rawFestivalData = "";
+                        try
+                        {
+                            StringBuilder buildFestivalData = new StringBuilder();
 
-                        string rawFestivalData = __instance.GetFestivalDataForYear("mainEvent");
+                            buildFestivalData.Append("pause 500/playMusic none/pause 500/globalFade/viewport -1000 -1000/loadActors MainEvent/warp farmer1 5 21/warp farmer2 11 21/warp farmer3 23 21/warp farmer4 12 21/faceDirection farmer1 2/faceDirection farmer3 2/faceDirection farmer4 2/faceDirection farmer 2");
+                            buildFestivalData.Append(CustomDance.BuildEventWarpBlock(females));
+                            buildFestivalData.Append(CustomDance.BuildShowFrameBlock(females));
+                            buildFestivalData.Append("/viewport 14 25 clamp true/pause 2000/playMusic FlowerDance/pause 600");
+                            buildFestivalData.Append(CustomDance.BuildAnimateBlock1(females));
+                            buildFestivalData.Append(CustomDance.BuildAnimateBlock2(females));
+                            buildFestivalData.Append("/pause 9600");
+                            buildFestivalData.Append(CustomDance.BuildGiantOffsetBlock(females));
+                            buildFestivalData.Append(CustomDance.BuildAnimateBlock3(females));
+                            buildFestivalData.Append("/pause 7600");
+                            buildFestivalData.Append(CustomDance.BuildStopAnimationBlock(females));
+                            buildFestivalData.Append("/pause 3000/globalFade/viewport -1000 -1000/message \"That was fun! Time to go home...\"/waitForOtherPlayers festivalEnd/end");
+
+                            rawFestivalData = buildFestivalData.ToString();
+
+                        }
+                        catch (Exception e)
+                        {
+                            Monitor.Log("Failed to generate a custom Flower Dance template- reverting to vanilla Flower Dance Template. Exception: " + e, LogLevel.Debug);
+                            rawFestivalData = __instance.GetFestivalDataForYear("mainEvent");
+                        }
+
+                        Monitor.Log(rawFestivalData, LogLevel.Trace);
+
                         int i = 1;
                         do
                         {
@@ -402,8 +429,6 @@ namespace FlowerDanceFix
         }
         public static bool hasVanillaLoveInterest(string character)
         {
-            NPC Target = Game1.getCharacterFromName(character);
-
             if (Utility.getLoveInterest(character) == null)
             {
                 return false;
