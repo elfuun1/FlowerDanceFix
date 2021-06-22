@@ -44,7 +44,7 @@ Some of these features may exist partially in the mod files, or visible in the m
 ## Acknowledgements
 
 * [Kelly2892](https://github.com/kenny2892/StardewValleyMods) - for example code regarding harmony implementation
-* Matt123337 - for mentorship, and listening to my gripes
+* matt123337/mdbell - for mentorship, and listening to my gripes
 * [The Stardew Valley Wiki's Modding Guide](https://stardewvalleywiki.com/Modding:Modder_Guide/Get_Started) - for general information and laying out step-by-step how to write a mod
 * Stardew Valley Discord Server- for answering quick questions and providing inspiration
 
