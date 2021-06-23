@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Netcode;
 using System.Threading.Tasks;
 using System.Reflection;
 using Microsoft.Xna.Framework.Graphics;
@@ -283,7 +284,7 @@ namespace FlowerDanceFix
 
                                 Monitor.Log($"Used vanilla \"Love Interest\" method to make a pair with {female} and {loveInterestMale} and successfully entered pair into NetDancePartner.", LogLevel.Debug);
                             }
-                            else if (getCustomLoveInterest(female) != null  && leftoverMales.Contains(getCustomLoveInterest(female)))
+                            else if (getCustomLoveInterest(female) != null && leftoverMales.Contains(getCustomLoveInterest(female)))
                             {
                                 string loveInterestMale = getCustomLoveInterest(female);
 
@@ -342,8 +343,8 @@ namespace FlowerDanceFix
                             buildFestivalData.Append(CustomDance.BuildShowFrameBlock(females));
                             buildFestivalData.Append("/viewport 14 25 clamp true/pause 2000/playMusic FlowerDance/pause 600");
                             buildFestivalData.Append(CustomDance.BuildAnimateBlock1(females));
-                            buildFestivalData.Append(CustomDance.BuildAnimateBlock2(females));
                             buildFestivalData.Append("/pause 9600");
+                            buildFestivalData.Append(CustomDance.BuildAnimateBlock2(females));
                             buildFestivalData.Append(CustomDance.BuildGiantOffsetBlock(females));
                             buildFestivalData.Append(CustomDance.BuildAnimateBlock3(females));
                             buildFestivalData.Append("/pause 7600");
@@ -364,10 +365,24 @@ namespace FlowerDanceFix
                         int i = 1;
                         do
                         {
-                            string female2 = ((!females[i - 1].IsVillager()) ? ("farmer" + Utility.getFarmerNumberFromFarmer(females[i - 1].TryGetFarmer())) : females[i - 1].TryGetVillager().Name);
-                            string male = ((!males[i - 1].IsVillager()) ? ("farmer" + Utility.getFarmerNumberFromFarmer(males[i - 1].TryGetFarmer())) : males[i - 1].TryGetVillager().Name);
-                            rawFestivalData = rawFestivalData.Replace("Girl" + (i), female2);
-                            rawFestivalData = rawFestivalData.Replace("Guy" + (i), male);
+                            var femTarget = females[i - 1];
+                            var maleTarget = males[i - 1];
+                            try
+                            {
+                                string female2 = ((!femTarget.IsVillager())
+                                    ? ("farmer" + Utility.getFarmerNumberFromFarmer(femTarget.TryGetFarmer()))
+                                    : femTarget.TryGetVillager().Name);
+                                string male = ((!maleTarget.IsVillager())
+                                    ? ("farmer" + Utility.getFarmerNumberFromFarmer(maleTarget.TryGetFarmer()))
+                                    : maleTarget.TryGetVillager().Name);
+
+                                rawFestivalData = rawFestivalData.Replace($"Girl{i} ", $"{female2} ");
+                                rawFestivalData = rawFestivalData.Replace($"Guy{i} ", $"{male} ");
+                            }
+                            catch (Exception e)
+                            {
+                                Monitor.Log($"Failed in {femTarget.Value} or {maleTarget.Value}: {e}");
+                            }
                             i++;
                         }
                         while (i <= Config.MaxDancePairs && i <= females.Count());
@@ -384,8 +399,10 @@ namespace FlowerDanceFix
                         rawFestivalData = animation1Girl.Replace(rawFestivalData, "animate $1 false true 596 4 0");
                         rawFestivalData = animation2Guy.Replace(rawFestivalData, "animate $1 false true 150 12 13 12 14");
                         rawFestivalData = animation2Girl.Replace(rawFestivalData, "animate $1 false true 600 0 3");
-                        string[] newCommands = (__instance.eventCommands = rawFestivalData.Split('/'));
 
+                        Monitor.Log(rawFestivalData, LogLevel.Trace);
+
+                        string[] newCommands = (__instance.eventCommands = rawFestivalData.Split('/'));
                     }
                 }
 
@@ -406,7 +423,7 @@ namespace FlowerDanceFix
                 {
                     return null;
                 }
-                
+
                 NPC TargetLoveInterest = Game1.getCharacterFromName(Target.loveInterest);
 
                 //Test if custom love interests are mutual
@@ -414,7 +431,7 @@ namespace FlowerDanceFix
                 {
                     return TargetLoveInterest.Name;
                 }
-                
+
                 //If exists and is not mutual, return null
                 else
                 {

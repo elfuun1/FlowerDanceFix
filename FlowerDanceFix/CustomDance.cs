@@ -112,7 +112,7 @@ namespace FlowerDanceFix
             int count = 1;
 
             StringBuilder eventAnimate1 = new StringBuilder();
-
+            eventAnimate1.Append("/beginSimultaneousCommand");
             while (count <= n)
             {
                 eventAnimate1.Append($"/animate Girl{count} false true 600 43 41 43 42");
@@ -120,7 +120,7 @@ namespace FlowerDanceFix
 
                 count++;
             }
-
+            eventAnimate1.Append("/endSimultaneousCommand");
             return eventAnimate1.ToString();
         }
 
@@ -130,15 +130,15 @@ namespace FlowerDanceFix
             int count = 1;
 
             StringBuilder eventAnimate2 = new StringBuilder();
-
+            eventAnimate2.Append("/beginSimultaneousCommand");
             while (count <= n)
             {
-                eventAnimate2.Append($"/animate Girl{count} false true 600 46 47");
+                eventAnimate2.Append($"/animate Girl{count} false true 600 44 45");
                 eventAnimate2.Append($"/animate Guy{count} false true 600 46 47");
 
                 count++;
             }
-
+            eventAnimate2.Append("/endSimultaneousCommand");
             return eventAnimate2.ToString();
         }
 
@@ -148,15 +148,15 @@ namespace FlowerDanceFix
             int count = 1;
 
             StringBuilder eventAnimate3 = new StringBuilder();
-
+            eventAnimate3.Append("/beginSimultaneousCommand");
             while (count <= n)
             {
-                eventAnimate3.Append($"/animate Girl{count} false true 600 43 41 43 42");
+                eventAnimate3.Append($"/animate Girl{count} false true 600 46 47");
                 eventAnimate3.Append($"/animate Guy{count} false true 600 44 45");
 
                 count++;
             }
-
+            eventAnimate3.Append("/endSimultaneousCommand");
             return eventAnimate3.ToString();
         }
 
@@ -169,7 +169,7 @@ namespace FlowerDanceFix
 
             while (count <= n)
             {
-                eventStopAnimation.Append($"/stopAnimation Girl{count} 40");
+                eventStopAnimation.Append($"/stopAnimation Girl{count} 46");
                 eventStopAnimation.Append($"/stopAnimation Guy{count} 44");
                 count++;
             }
@@ -183,13 +183,13 @@ namespace FlowerDanceFix
             int count = 1;
 
             StringBuilder eventOffset = new StringBuilder();
-
+            eventOffset.Append("/beginSimultaneousCommand");
             while (count <= n)
             {
                 eventOffset.Append($"/positionOffset Guy{count} 0 -2");
                 count++;
             }
-
+            eventOffset.Append("/endSimultaneousCommand");
             return eventOffset.ToString();
         }
 
