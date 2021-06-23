@@ -52,6 +52,10 @@ Custom NPCs in the screenshot are from [Stardew Valley Expanded](https://www.nex
 
 ## Update Logs
 
+### Version [1.2.0] - June 22 2021
+* Adds expanded dance capacity, up to 17 pairs (34 NPCs total)
+* Outlines code for custom animation insertion.
+
 ### Version [1.1.0] - May 3 2021
 * Added custom love interest pairing method
 * Fixed blacklist bug
