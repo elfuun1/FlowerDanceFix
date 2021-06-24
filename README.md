@@ -23,13 +23,15 @@ A list of NPCs to be excluded from selection for a dancer line. To configure the
 
 This mod will likely break when used alongside any mod that accesses the Event.setUpFestivalMainEvent method.
 
-## Integrations
+## Integrations/Compatible Mods
 
 This mod currently contains integrations for the following mods:
 
 [Generic Mod Config Menu by spacechase0](https://www.nexusmods.com/stardewvalley/mods/5098)
 
-More to come!
+This mod is compatible and works as-intended with the following mods:
+
+[Flower Dancing by Kelly2892](https://www.nexusmods.com/stardewvalley/mods/8107)
 
 ## Future Development
 
@@ -48,7 +50,7 @@ Some of these features may exist partially in the mod files, or visible in the m
 * [The Stardew Valley Wiki's Modding Guide](https://stardewvalleywiki.com/Modding:Modder_Guide/Get_Started) - for general information and laying out step-by-step how to write a mod
 * Stardew Valley Discord Server- for answering quick questions and providing inspiration
 
-Custom NPCs in the screenshot are from [Stardew Valley Expanded](https://www.nexusmods.com/stardewvalley/mods/3753)!
+Custom NPCs in the screenshot are from [Ridgeside Village](https://www.nexusmods.com/stardewvalley/mods/7286)!
 
 ## Update Logs
 
