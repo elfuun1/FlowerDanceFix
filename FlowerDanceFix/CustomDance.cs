@@ -9,7 +9,7 @@ using StardewValley;
 using StardewValley.Network;
 using StardewValley.Objects;
 using StardewModdingAPI;
-using Harmony;
+using HarmonyLib;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace FlowerDanceFix
@@ -39,7 +39,7 @@ namespace FlowerDanceFix
             }
         }
 
-        public static string BuildEventWarpBlock(List<NetDancePartner> females)
+        public static string BuildEventWarpBlock(List<NetDancePartner> upperLineWarp)
         {
         
             /* There will eventually be some code here straightening out issues between custom spectator animations
@@ -47,7 +47,7 @@ namespace FlowerDanceFix
              * it'll be messy, ugh I'm not looking forward to it
              */
             
-            int n = females.Count;
+            int n = upperLineWarp.Count;
             int q = n % 2;
 
             StringBuilder eventWarpDancer = new StringBuilder();
@@ -88,10 +88,10 @@ namespace FlowerDanceFix
             return eventWarpDancer.ToString();
         }
 
-        public static string BuildShowFrameBlock(List<NetDancePartner> females)
+        public static string BuildShowFrameBlock(List<NetDancePartner> upperLineShowFrame)
         {
 
-            int n = females.Count();
+            int n = upperLineShowFrame.Count();
             int count = 1;
 
             StringBuilder eventShowFrame = new StringBuilder();
@@ -106,10 +106,10 @@ namespace FlowerDanceFix
             return eventShowFrame.ToString();
         }
 
-        public static string BuildAnimateBlock1(List<NetDancePartner> females)
+        public static string BuildAnimateBlock1(List<NetDancePartner> upperLineAnimate1)
         {
 
-            int n = females.Count();
+            int n = upperLineAnimate1.Count();
             int count = 1;
 
             StringBuilder eventAnimate1 = new StringBuilder();
@@ -125,9 +125,9 @@ namespace FlowerDanceFix
             return eventAnimate1.ToString();
         }
 
-        public static string BuildAnimateBlock2(List<NetDancePartner> females)
+        public static string BuildAnimateBlock2(List<NetDancePartner> upperLineAnimate2)
         { 
-            int n = females.Count();
+            int n = upperLineAnimate2.Count();
             int count = 1;
 
             StringBuilder eventAnimate2 = new StringBuilder();
@@ -143,9 +143,9 @@ namespace FlowerDanceFix
             return eventAnimate2.ToString();
         }
 
-        public static string BuildAnimateBlock3(List<NetDancePartner> females)
+        public static string BuildAnimateBlock3(List<NetDancePartner> upperLineAnimate3)
         {
-            int n = females.Count();
+            int n = upperLineAnimate3.Count();
             int count = 1;
 
             StringBuilder eventAnimate3 = new StringBuilder();
@@ -161,9 +161,9 @@ namespace FlowerDanceFix
             return eventAnimate3.ToString();
         }
 
-        public static string BuildStopAnimationBlock(List<NetDancePartner> females)
+        public static string BuildStopAnimationBlock(List<NetDancePartner> upperLineAnimateStop)
         {
-            int n = females.Count();
+            int n = upperLineAnimateStop.Count();
             int count = 1;
 
             StringBuilder eventStopAnimation = new StringBuilder();
@@ -178,9 +178,9 @@ namespace FlowerDanceFix
             return eventStopAnimation.ToString();
         }
 
-        public static string BuildOffsetBlock(List<NetDancePartner> females)
+        public static string BuildOffsetBlock(List<NetDancePartner> upperLineOffset)
         {
-            int n = females.Count();
+            int n = upperLineOffset.Count();
             int count = 1;
 
             StringBuilder eventOffset = new StringBuilder();
@@ -194,9 +194,9 @@ namespace FlowerDanceFix
             return eventOffset.ToString();
         }
 
-        public static string BuildGiantOffsetBlock(List<NetDancePartner> females)
+        public static string BuildGiantOffsetBlock(List<NetDancePartner> upperLineOffsetGiant)
         {
-            string offsetBlock = BuildOffsetBlock(females);
+            string offsetBlock = BuildOffsetBlock(upperLineOffsetGiant);
             
             StringBuilder eventOffsetGiant = new StringBuilder();
             for (int z = 0; z < 28; z++)
@@ -208,6 +208,11 @@ namespace FlowerDanceFix
 
             return eventOffsetGiant.ToString();
         }
+
+        //public static string BuildFDFSpriteChangeBlock()
+        //{
+            
+        //}
 
         //Example Code by PathosChild
         /*
